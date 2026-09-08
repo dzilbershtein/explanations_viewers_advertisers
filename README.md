@@ -15,6 +15,7 @@ appendix robustness checks.
 .
 ├── analysis.py          # end-to-end statistical analysis (run this)
 ├── figures.py           # regenerates the paper figures into ./figures
+├── PROMPTS.md           # exact prompts used to generate the LLM explanations
 ├── requirements.txt
 ├── README.md
 └── data/                 # NOT tracked in git; download from Dataverse (see below)
@@ -50,7 +51,10 @@ python figures.py        # writes figures (PNG + PDF) into ./figures
 
 `analysis.py` prints the group means, the RQ1/RQ2 feature-count comparisons, the
 significant terms of the RQ3/RQ4 logistic models, the inter-rater table, and the
-appendix checks.
+appendix checks. Key expected values: Mentioned-feature means of Gemma2 2.32,
+GPT-4o 3.69, human Session 1 3.02, human Session 2 2.64; advertising label less
+frequent for male-user scenarios (OR≈0.45); Lifestyle/Uniqueness Cohen's
+kappa 0.49/0.64 with Gwet's AC1 0.86/0.88.
 
 `figures.py` writes five figures to `./figures` (each as PNG and PDF):
 `feature_counts_source` (Mentioned/Explicit means by source),
@@ -108,4 +112,4 @@ explanation text found no emails, URLs, or identifier-like strings.
 
 ## Citation
 If you use this code or data, please cite the paper (see the repository release
-notes for the current reference).# explanations_viewers_advertisers
+notes for the current reference).
