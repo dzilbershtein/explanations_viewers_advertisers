@@ -35,9 +35,11 @@ OUT_DIR = "figures"
 
 # ---------------- consistent theme ----------------
 OKABE = ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9"]
+HATCH = ["", "///", "...", "xxx", "\\\\\\"]   # redundant encoding for b/w & colour-blind
+PROP_YMAX = 0.6                                 # cap proportion axes (max observed ~0.5)
 SRC_ORDER = ["gemma2", "gpt-4o", "human_session_1", "human_session_2"]
 SRC_LABEL = {"gemma2": "Gemma2", "gpt-4o": "GPT-4o",
-             "human_session_1": "Human S1\n(generate)", "human_session_2": "Human S2\n(revise)"}
+             "human_session_1": "Human S1\n(Generation)", "human_session_2": "Human S2\n(Revision)"}
 NICE = {"advertiser": "Advertiser", "viewer": "Viewer",
         "Weekend": "Weekend", "Workday": "Workday",
         "Phone": "Phone", "PC": "PC", "TV": "TV",
@@ -142,10 +144,10 @@ def panel_prop(ax, df, label, gcol, mcol, gorder, morder, title):
             pt.append(p); lo.append(p - l); hi.append(h - p)
         off = (j - (k - 1) / 2) * w
         ax.bar(xs + off, pt, w, yerr=[lo, hi], capsize=2.5, color=pal[mv],
-               edgecolor="white", linewidth=.5, label=NICE.get(mv, mv))
+               edgecolor="black", linewidth=.5, hatch=HATCH[j % len(HATCH)], label=NICE.get(mv, mv))
     ax.set_xticks(xs)
     ax.set_xticklabels([SRC_LABEL.get(x, NICE.get(x, x)) for x in gorder], fontsize=8)
-    ax.set_ylim(0, 1); ax.set_ylabel("Proportion with label"); ax.set_title(title)
+    ax.set_ylim(0, PROP_YMAX); ax.set_ylabel("Proportion with label"); ax.set_title(title)
     ax.grid(axis="y", alpha=.25); ax.legend(frameon=False, fontsize=8, loc="upper right")
 
 
@@ -187,9 +189,9 @@ def fig_feature_sessions(human):
     for i, (ax, (title, s1, s2)) in enumerate(zip(axes, panels)):
         c1, c2 = counts(*s1), counts(*s2)
         ax.bar(x - w / 2, [c1[k] for k in order], w, color=OKABE[0],
-               edgecolor="white", linewidth=.5, label="Session 1 (Generate)")
+               edgecolor="black", linewidth=.5, hatch="", label="Session 1 (Generation)")
         ax.bar(x + w / 2, [c2[k] for k in order], w, color=OKABE[1],
-               edgecolor="white", linewidth=.5, label="Session 2 (Revise)")
+               edgecolor="black", linewidth=.5, hatch="///", label="Session 2 (Revision)")
         ax.set_xticks(x)
         ax.set_xticklabels([FEATURES[k] for k in order], fontsize=8, rotation=40, ha="right")
         ax.set_title(f"({'abc'[i]}) {title}"); ax.grid(axis="y", alpha=.25)
