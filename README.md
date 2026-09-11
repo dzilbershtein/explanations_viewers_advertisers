@@ -27,7 +27,7 @@ appendix robustness checks.
 
 ## Data availability
 
-The dataset is published on Dataverse: **‹add DOI / link›**. It is not tracked in
+The dataset is published on Dataverse: [DOI](https://doi.org/10.34894/XQXJ5A). It is not tracked in
 this repository. To reproduce the analysis, download the files and place them in
 a `data/` folder next to `analysis.py`:
 
